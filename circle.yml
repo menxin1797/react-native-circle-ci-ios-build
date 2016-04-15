@@ -12,12 +12,10 @@ dependencies:
   pre:
     - git clone "git@github.com:facebook/react-native.git"
     # TODO it can be a branch build, in that case fetch origin is no needed
-    # - cd $LINUX_REPO && git fetch origin pull/$PULL_ID/head && git checkout $LINUX_SHA1
+    - cd $LINUX_REPO && git fetch origin pull/$PULL_ID/head && git checkout $LINUX_SHA1
     
 test:
   override:
-    - echo "skipping tests" || touch test-failure.txt:
-        pwd: $LINUX_REPO
     - xctool
       -project Examples/UIExplorer/UIExplorer.xcodeproj
       -scheme UIExplorer
@@ -26,5 +24,6 @@ test:
         pwd: $LINUX_REPO
 
   post:
-    # - bash report-react-native-status.sh
+    # TODO post status when starting the build
+    - bash report-react-native-status.sh
 
