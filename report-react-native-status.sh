@@ -1,5 +1,6 @@
 #!/bin/bash
 # relies on $LINUX_REPO and $LINUX_SHA1 being set
+# GITHUB_TOKEN is generated at GitHub account with only "repo:status" access
 
 TEST_FAILURE_FILE="$LINUX_REPO/test-failure.txt"
 GITHUB_STATUS_URL="https://api.github.com/repos/facebook/react-native/statuses/$LINUX_SHA1?access_token=$GITHUB_TOKEN"
