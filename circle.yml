@@ -1,0 +1,19 @@
+# OS X project
+# $LINUX_SHA1 set via parameterised builds API endpoint
+
+machine:
+  environment:
+    LINUX_REPO: "react-native"
+    
+dependencies:
+  pre:
+    - git clone "git@github.com:facebook/react-native.git"
+    - cd $LINUX_REPO && git checkout $LINUX_SHA1
+    
+test:
+  override:
+    - echo "skipping tests" || touch test-failure.txt:
+        pwd: $LINUX_REPO
+  post:
+    - bash report-react-native-status.sh
+
