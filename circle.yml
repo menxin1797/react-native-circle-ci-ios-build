@@ -10,21 +10,25 @@ machine:
     
 dependencies:
   pre:
+    # TODO post status when starting the build
+    # - bash report-react-native-status.sh
     - git clone "git@github.com:facebook/react-native.git"
-    # TODO it can be a branch build, in that case fetch origin is no needed
-    - cd $LINUX_REPO && git fetch origin pull/$PULL_ID/head && git checkout $LINUX_SHA1
+    # if it is a pull request then fetch the commit
+    - if [[ -e $PULL_ID ]]; then cd $LINUX_REPO && git fetch origin pull/$PULL_ID/head && git checkout $LINUX_SHA1; fi
+    # otherwise it is a branch build
+    - if [[ ! -e $PULL_ID ]] && [[ -e $LINUX_SHA1 ]]; then cd $LINUX_REPO && git fetch origin && git checkout $LINUX_SHA1; fi
     
 test:
   override:
     - echo "Test are fine"
-    # - xctool
-    #   -project Examples/UIExplorer/UIExplorer.xcodeproj
-    #   -scheme UIExplorer
-    #   -sdk iphonesimulator
-    #   -destination 'platform=iOS Simulator,name=iPhone 5,OS=9.2':
-    #     pwd: $LINUX_REPO
+    - xctool
+      -project Examples/UIExplorer/UIExplorer.xcodeproj
+      -scheme UIExplorer
+      -sdk iphonesimulator
+      -destination 'platform=iOS Simulator,name=iPhone 5,OS=9.2':
+        pwd: $LINUX_REPO
 
   post:
-    # TODO post status when starting the build
+    # TODO how to post Error status?
     - bash report-react-native-status.sh
 
