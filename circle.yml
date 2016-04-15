@@ -20,11 +20,11 @@ dependencies:
     
 test:
   override:
-    - xctool
+    - cd $LINUX_REPO && xctool
       -project Examples/UIExplorer/UIExplorer.xcodeproj
       -scheme UIExplorer
       -sdk iphonesimulator
-        pwd: $LINUX_REPO
+      -destination 'platform=iOS Simulator,name=iPhone 5,OS=9.2'
 
   post:
     # TODO how to post Error status?
