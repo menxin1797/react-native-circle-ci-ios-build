@@ -20,14 +20,11 @@ dependencies:
     
 test:
   override:
-    - echo "Test are fine"
     - xctool
       -project Examples/UIExplorer/UIExplorer.xcodeproj
       -scheme UIExplorer
       -sdk iphonesimulator
-      -destination 'platform=iOS Simulator,name=iPhone 5,OS=9.2':
-        pwd: $LINUX_REPO
-
+      -destination 'platform=iOS Simulator,name=iPhone 5,OS=9.2'
   post:
     # TODO how to post Error status?
     - bash report-react-native-status.sh
