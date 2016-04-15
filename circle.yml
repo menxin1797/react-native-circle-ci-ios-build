@@ -3,8 +3,8 @@
 # $PULL_ID set via parameterised builds API endpoint
 
 machine:
-  xcode:
-    version: 7.3
+  # xcode:
+    # version: 7.3
   environment:
     LINUX_REPO: "react-native"
     
